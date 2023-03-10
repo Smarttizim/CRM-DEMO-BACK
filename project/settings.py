@@ -103,20 +103,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     # {
+#     #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     # },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
@@ -154,27 +154,27 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Amazon S3 Storage
-from environs import Env
-env = Env()
-env.read_env()
-AWS_ACCESS_KEY_ID =env.str('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY =env.str('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME =env.str('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# from environs import Env
+# env = Env()
+# env.read_env()
+# AWS_ACCESS_KEY_ID =env.str('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY =env.str('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME =env.str('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # Django Admin Panel Configuration
 
 JAZZMIN_SETTINGS = {
     "show_ui_builder":True,
     # title of the window (Will default to current_admin_site.site_title if absent or None)
-    "site_title": "Smart Ta'lim",
+    "site_title": "Smart Tizim",
 
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_header": "Smart Ta'lim",
+    "site_header": "Smart Tizim",
 
     # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
-    "site_brand": "Smart Ta'lim",
+    "site_brand": "Smart Tizim",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "images/title.png",
@@ -192,10 +192,10 @@ JAZZMIN_SETTINGS = {
     "site_icon": 'images/title.png',
 
     # Welcome text on the login screen
-    "welcome_sign": "Smart Ta'lim CRM platformasiga xush kelibsiz!",
+    "welcome_sign": "Smart Tizim CRM platformasiga xush kelibsiz!",
 
     # Copyright on the footer
-    "copyright": "Smart Ta'lim LTD",
+    "copyright": "Smart Tizim LTD",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
