@@ -6,7 +6,7 @@ from datetime import datetime
 # Create your models here.
 from datetime import datetime
 
-from courses.models import Groups
+
 class Student(models.Model):
     class Languages(models.TextChoices):
         UZBEK = "uzbek","O'zbekcha"
