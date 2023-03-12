@@ -30,7 +30,7 @@ class RoomViewset(ModelViewSet):
 def group_student(request):
     xona = request.POST.get("xona_id")
     student = request.POST.get("student_id")
-    # a = xona.added
+    a = xona.added
     b = datetime.now()
     z = b.day-3
     if z <= b.day and b.day+27 <= 31:
@@ -41,7 +41,7 @@ def group_student(request):
         m = b.month+1
     c = datetime(b.year, m, x)
     print("To'lov qilish kerak bo'lgan sana = ", c)
-    StudentPayment.objects.create(xona, "120000", 'naqd', student, c)
+    StudentPayment.objects.create(xona, "120000", 'naqd', request.user, c)
     return JsonResponse({'status':'ok'})
 
 class GroupsViewset(ModelViewSet):
