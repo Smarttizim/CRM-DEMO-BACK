@@ -4,24 +4,55 @@ from rest_framework import status
 from .serializer import *
 from .models import *
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
 from center.models import Teacher
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsManagerandDirectorOrReadOnly
+from datetime import datetime
+from payment.models import StudentPayment
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.http import JsonResponse
+
 class CourseViewset(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     # permission_classes = [IsManagerandDirectorOrReadOnly]
+
+
 class RoomViewset(ModelViewSet):
-    queryset =  Room.objects.all()
+    queryset = Room.objects.all()
     serializer_class = RoomSerializer
     # permission_classes = [IsManagerandDirectorOrReadOnly]
+
+
+@api_view()
+def group_student(request):
+    xona = request.POST.get("xona_id")
+    student = request.POST.get("student_id")
+    a = xona.added
+    b = datetime.now()
+    z = b.day-3
+    if z <= b.day and b.day+27 <= 31:
+        x = b.day+27
+        m = b.month
+    elif z > 0:
+        x = z
+        m = b.month+1
+    c = datetime(b.year, m, x)
+    print("To'lov qilish kerak bo'lgan sana = ", c)
+    StudentPayment.objects.create(xona, "120000", 'naqd', student, c)
+    return JsonResponse({'status':'ok'})
+
 class GroupsViewset(ModelViewSet):
-    queryset =  Groups.objects.all()
+    queryset = Groups.objects.all()
     serializer_class = GroupSerializer
     # permission_classes = [IsManagerandDirectorOrReadOnly]
+
     def create(self, request, *args, **kwargs):
         data = request.data
-        group = Groups.objects.create(name=data['name'],education=data.get('education',None),status=data.get('status',None),start=data.get('start',None),start_lesson=data.get('start_lesson',None),finish=data.get('finish',None),finish_lesson=data.get('finish_lesson',None),user=request.user,day=data.get('day',None))
+        group = Groups.objects.create(name=data['name'], education=data.get('education', None), status=data.get('status', None), start=data.get('start', None), start_lesson=data.get(
+            'start_lesson', None), finish=data.get('finish', None), finish_lesson=data.get('finish_lesson', None), user=request.user, day=data.get('day', None))
         group.save()
         if 'teacher' in data:
                 teachers = data['teacher']
@@ -54,6 +85,7 @@ class GroupsViewset(ModelViewSet):
         group.save()
         serializer = GroupSerializer(group)
         return Response(serializer.data)
+
     def partial_update(self, request, *args, **kwargs):
         group_object = self.get_object()
         data = request.data
@@ -61,7 +93,7 @@ class GroupsViewset(ModelViewSet):
                 teachers = data['teacher']
                 try:
                     teacher = Teacher.objects.get(id=teachers)
-                    group_object.teacher= teacher
+                    group_object.teacher = teacher
                 except Teacher.DoesNotExist:
                     pass
         if 'room' in data:
@@ -75,16 +107,30 @@ class GroupsViewset(ModelViewSet):
                 course = data['course']
                 try:
                     courses = Course.objects.get(id=course)
-                    group_object.course=courses
+                    group_object.course = courses
                 except Course.DoesNotExist:
                     pass
         if 'students' in data:
             for student in data['students']:
                 try:
                     xona = Student.objects.get(id=student['id'])
+                    a = xona.added
+                    b = datetime.now()
+                    z = b.day-3
+                    if z <= b.day and b.day+27 <= 31:
+                        x = b.day+27
+                        m = b.month
+                    elif z > 0:
+                        x = z
+                        m = b.month+1
+                    c = datetime(b.year, m, x)
+                    print("To'lov qilish kerak bo'lgan sana = ", c)
+                    StudentPayment.objects.create(xona, group_object, "120000", 'naqd', request.user, c)
                     group_object.student.add(xona)
+
                 except Student.DoesNotExist:
                     pass
+                
         group_object.education=data.get('education',group_object.education)
         group_object.status=data.get('status',group_object.status)
         group_object.start=data.get('start',group_object.start)

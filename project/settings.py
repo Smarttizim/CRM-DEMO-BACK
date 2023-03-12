@@ -8,6 +8,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
+import datetime
+import os
+from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,7 +27,7 @@ SECRET_KEY = 'django-insecure-30^x5j48b@+1bw=e#qutduvi#gm4vy@re12!^(gc)^8a6p5d1x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -129,26 +133,24 @@ TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
 
 USE_TZ = True
-from django.utils.translation import gettext_lazy as _
 
 LOCALE_PATHS = [
     BASE_DIR / 'locale'
 ]
 LANGUAGES = (
-    ('uz',_('Uzbek')),
-    ('en',_('English'))
+    ('uz', _('Uzbek')),
+    ('en', _('English'))
 )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-import os
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # if DEBUG:
 #     STATICFILES_DIRS =[
 #         BASE_DIR /'static'
 #     ]
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
@@ -166,7 +168,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django Admin Panel Configuration
 
 JAZZMIN_SETTINGS = {
-    "show_ui_builder":True,
+    "show_ui_builder": True,
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Smart Tizim",
 
@@ -198,7 +200,7 @@ JAZZMIN_SETTINGS = {
     "copyright": "Smart Tizim LTD",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
-    # If you want to use a single search field you dont need to use a list, you can use a simple string 
+    # If you want to use a single search field you dont need to use a list, you can use a simple string
     "search_model": ["auth.User", 'center.StudyCenter'],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
@@ -212,10 +214,12 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
 
         # Url that gets reversed (Permissions can be added)
-        {"name": _("Home"),  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": _("Home"),  "url": "admin:index",
+         "permissions": ["auth.view_user"]},
 
         # external url that opens in a new window (Permissions can be added)
-        {"name": _("Support"), "url": "https://t.me/AzizbekGulomov", "new_window": True},
+        {"name": _("Support"), "url": "https://t.me/AzizbekGulomov",
+         "new_window": True},
 
         # model admin to link to (Permissions checked against model)
         {"model": "auth.User"},
@@ -230,7 +234,8 @@ JAZZMIN_SETTINGS = {
 
     # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
-        {"name": _("Support"), "url": "https://t.me/AzizbekGulomov", "new_window": True},
+        {"name": _("Support"), "url": "https://t.me/AzizbekGulomov",
+         "new_window": True},
         {"model": "auth.user"}
     ],
 
@@ -256,8 +261,8 @@ JAZZMIN_SETTINGS = {
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         "books": [{
-            "name": "Make Messages", 
-            "url": "make_messages", 
+            "name": "Make Messages",
+            "url": "make_messages",
             "icon": "fas fa-comments",
             "permissions": ["books.view_book"]
         }]
@@ -269,19 +274,19 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
-        'auth.toke':'fas fa-user',
-        'center.User':'fas fa-user',
-        'center.Teacher':'fas fa-chalkboard-teacher',
-        'center.Director':'fas fa-user-cog',
-        'center.Manager':'fas fa-dollar-sign',
-        'students.Student':'fas fa-graduation-cap',
-        'students.Davomat':'fas fa-calendar',
-        'students.Test':'fas fa-check',
-        'courses.Course':'fas fa-book-open',
-        'courses.Room':'fas fa-building',
-        'courses.Groups':'fas fa-users',
-        "payment.StudentPayment":"fas fa-money-check",
-        'courses.ClassRoom':'fas fa-chalkboard'
+        'auth.toke': 'fas fa-user',
+        'center.User': 'fas fa-user',
+        'center.Teacher': 'fas fa-chalkboard-teacher',
+        'center.Director': 'fas fa-user-cog',
+        'center.Manager': 'fas fa-dollar-sign',
+        'students.Student': 'fas fa-graduation-cap',
+        'students.Davomat': 'fas fa-calendar',
+        'students.Test': 'fas fa-check',
+        'courses.Course': 'fas fa-book-open',
+        'courses.Room': 'fas fa-building',
+        'courses.Groups': 'fas fa-users',
+        "payment.StudentPayment": "fas fa-money-check",
+        'courses.ClassRoom': 'fas fa-chalkboard'
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -321,7 +326,7 @@ JAZZMIN_SETTINGS = {
 }
 JAZZMIN_SETTINGS["show_ui_builder"] = True
 JAZZMIN_UI_TWEAKS = {
-   
+
     # "theme": "simplex",
     # "dark_mode_theme": "darkly",
 }
@@ -329,14 +334,17 @@ JAZZMIN_UI_TWEAKS = {
 AUTH_USER_MODEL = 'center.User'
 # Password validation
 REST_FRAMEWORK = {
-      'DEFAULT_AUTHENTICATION_CLASSES': (
-       'rest_framework.authentication.TokenAuthentication',
-       'rest_framework_simplejwt.authentication.JWTAuthentication',
-   ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
+
+
 # JWT SETTINGS
-import datetime
-from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=4),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),

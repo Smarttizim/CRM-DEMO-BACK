@@ -30,6 +30,9 @@ class Student(models.Model):
             time = data.date
             date_time = time.strftime("%m/%d/%Y, %H:%M:%S")
             return date_time
+        
+    
+    
     class Meta:
         db_table = 'Students'
         verbose_name = _("Student ")
