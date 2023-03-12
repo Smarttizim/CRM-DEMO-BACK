@@ -30,7 +30,7 @@ class RoomViewset(ModelViewSet):
 def group_student(request):
     xona = request.POST.get("xona_id")
     student = request.POST.get("student_id")
-    a = xona.added
+    # a = xona.added
     b = datetime.now()
     z = b.day-3
     if z <= b.day and b.day+27 <= 31:
