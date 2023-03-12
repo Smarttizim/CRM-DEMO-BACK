@@ -5,6 +5,8 @@ from django.utils.html import format_html
 from datetime import datetime
 # Create your models here.
 from datetime import datetime
+
+from courses.models import Groups
 class Student(models.Model):
     class Languages(models.TextChoices):
         UZBEK = "uzbek","O'zbekcha"
@@ -39,6 +41,7 @@ class Student(models.Model):
         verbose_name_plural = _("Students ")
 class Davomat(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE,related_name='davomat',to_field='phone')
+    # group = models.ForeignKey(Groups,related_name='groups',on_delete=models.SET_NULL,null=True,blank=True)
     status = models.BooleanField(default=True)
     date = models.DateTimeField(default=datetime.now())
     description = models.TextField(default="Sabab ko'rsatilmagan")
